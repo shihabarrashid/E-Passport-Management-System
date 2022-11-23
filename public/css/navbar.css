@@ -1,0 +1,16 @@
+.nav-bg{
+    background-color: #075e24;
+}
+
+.name{
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 24px;
+    outline: 0;
+    padding: 8px 16px;
+    text-decoration: none;
+    vertical-align: middle;
+    color: #1976d2;
+}
