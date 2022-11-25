@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +39,58 @@ Route::controller(ApplicantController::class)->group(function () {
     Route::get('/applicant/logout',  'logout') 
     -> name('applicant.logout');
 
+    //Applicant Account
+    Route::get('/applicant/account',  'account') 
+    -> name('applicant.account');
+});
+
+/* APPLICATION ROUTES */
+Route::controller(ApplicationController::class)->group(function () {
+    //Set Schedule
+    Route::post('/applicant/set-schedule',  'setSchedule') 
+    -> name('set.schedule');
+});
+
+/* DOCUMENTS ROUTES */
+Route::controller(DocumentController::class)->group(function () {
+    //Upload Documents
+    Route::post('/applicant/upload-documents',  'uploadDocuments') 
+    -> name('documents.store');
+});
+
+/* OFFICER ROUTES */
+Route::controller(OfficerController::class)->group(function () {
+    //Authenticate Officer Credentials
+    Route::post('/officer/authenticate',  'authenticate') 
+    -> name('officer.authenticate');
+
+    //Officer SignIn
+    Route::get('/officer/sign-in',  'signIn') 
+    -> name('officer.signIn');
+
+    //Officer Dashboard
+    Route::get('/officer/dashboard',  'dashboard') 
+    -> name('officer.dashboard');
+
+    //Officer Logout
+    Route::get('/officer/logout',  'logout') 
+    -> name('officer.logout');
+
+    //Officer Account
+    Route::get('/officer/account',  'account') 
+    -> name('officer.account');
+
+    //Officer Pending Applications
+    Route::get('/officer/pending-application',  'pendingApplication') 
+    -> name('pending.application');
+
+    //Officer Verified Applications
+    Route::get('/officer/verified-application',  'verifiedApplication') 
+    -> name('verified.application');
+
+    //Officer Rejected Applications
+    Route::get('/officer/rejected-application',  'rejectedApplication') 
+    -> name('rejected.application');
 });
 
 

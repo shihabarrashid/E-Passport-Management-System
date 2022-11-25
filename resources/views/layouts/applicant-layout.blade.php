@@ -31,16 +31,16 @@
             
                 <div class="collapse navbar-collapse  my-2 my-lg-0" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-5">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{auth()->user()->name ?? 'None'}}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="">Account</a>
-                        <a class="dropdown-item" href="">Applications</a>
-                        <a class="dropdown-item" href="{{route('applicant.logout')}}">Logout</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{auth()->user()->name ?? 'None'}}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('applicant.account')}}">Account</a>
+                            <a class="dropdown-item" href="">Applications</a>
+                            <a class="dropdown-item" href="{{route('applicant.logout')}}">Logout</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

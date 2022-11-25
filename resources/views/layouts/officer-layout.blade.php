@@ -24,21 +24,42 @@
     @include('includes.navbar')
 
     {{-- NAVBAR MENU --}}
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <h5 class="navbar-brand">Welcome to Bangladesh e-Passport Portal</h5>
-          <a class="btn btn-outline-success mr-5" href="{{route('applicant.signIn')}}">Sign In</a>
-        </div>
-    </nav>
+    @auth
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <h5 class="navbar-brand">Welcome to Bangladesh e-Passport Portal</h5>
+            
+                <div class="collapse navbar-collapse  my-2 my-lg-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-5">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('pending.application')}}">Passport Applications <span class="sr-only">(pending)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('verified.application')}}">Verified Applications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('rejected.application')}}">Rejected Applications</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Officer
+                            {{auth()->user()->name ?? 'None'}}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('officer.account')}}">Account</a>
+                            <a class="dropdown-item" href="{{route('officer.logout')}}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    @endauth
+ 
 
     {{-- CONTENT --}}
     <div style="min-height: 70vh;">
         @yield('content')
     </div>
-
-    
-
-
 
 
     {{-- JS --}}
