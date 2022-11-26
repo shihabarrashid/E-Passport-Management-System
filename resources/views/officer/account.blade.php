@@ -14,7 +14,7 @@
                 {{ session('error') }}
                 </div>
             @endif
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('officer.update')}}">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
@@ -24,6 +24,9 @@
                         name="name"
                         value="{{auth()->user()->name}}"
                     />
+                    @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
     
                 <div class="mb-3">
@@ -34,6 +37,9 @@
                         name="email"
                         value="{{auth()->user()->email}}"
                     />
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -44,6 +50,9 @@
                         name="contact_no"
                         value="{{auth()->user()->contact_no}}"
                     />
+                    @error('contact_no')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -53,6 +62,9 @@
                         class=""
                         name="password"
                     />
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 
                 <button type="submit" class="btn btn-success">Update</button>

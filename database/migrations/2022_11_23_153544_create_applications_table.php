@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('passport_type');
             $table->string('delivery_type');
             $table->string('status')->default('payment_done');
-            $table->date('scheduled_at')->nullable();
+            $table->timestamp('scheduled_at')->nullable();
             $table->string('issue')->nullable();
             $table->string('rating')->nullable();
+            $table->string('feedback')->nullable();
             $table->timestamps();
         });
     }

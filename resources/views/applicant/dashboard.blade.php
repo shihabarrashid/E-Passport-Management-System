@@ -65,7 +65,7 @@
 
                         <td class="text-center">
                             @if($application->status == 'payment_done')
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadDocumentsModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Upload Documents">
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#uploadDocumentsModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Upload Documents">
                                 <i class="bi bi-upload"></i>
                                 </button>
 
@@ -73,23 +73,26 @@
                                 <span class="badge bg-secondary">Wait Until Documents are Verified</span>
 
                             @elseif($application->status == 'verified') 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setScheduleModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Set Schedule">
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#setScheduleModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Set Schedule">
                                 <i class="bi bi-calendar3"></i>
                                 </button>
 
                             @elseif($application->status == 'rejected') 
-                                <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#setScheduleModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="View Issue">
-                                <i class="bi bi-arrows-fullscreen"></i>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#applicationIssueModal" data-bs-id="{{ $application->id }}" data-bs-issue="{{$application->issue}}" data-bs-toggle="tooltip" data-bs-placement="right" title="View Issue"><i class="bi bi-arrows-fullscreen"></i></button>
 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadDocumentsModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Upload Documents Again">
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#uploadDocumentsModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Upload Documents Again">
                                 <i class="bi bi-upload"></i>
                                 </button>
 
                             @elseif($application->status == 'in_process') 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setScheduleModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Give your Feedback">
-                                <i class="bi bi-star"></i>
-                                </button>
-
+                                @if ($application->rating == null)
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal" data-bs-id="{{ $application->id }}" data-bs-toggle="tooltip" title="Give your Feedback">
+                                        <i class="bi bi-star"></i>
+                                    </button>
+                                @else
+                                    {{-- <span class="badge bg-secondary">No Actions Available</span> --}}
+                                @endif
+                                
                             @else
                                 {{-- <span class="badge bg-secondary">No Actions Available</span> --}}
                             @endif
@@ -208,6 +211,98 @@
         </div>
     </div>
 
+
+{{-- View Issue Modal --}}
+    <div class="modal fade" id="applicationIssueModal" tabindex="-1" aria-labelledby="applicationIssueModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="applicationIssueModalLabel">Application Issue</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="application-issue" class="col-form-label">Issue:</label>
+                    <textarea class="form-control" id="application-issue" rows="3" readonly disabled></textarea>
+                </div>    
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<!-- Give Feedback -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="feedbackModalLabel">Give your Feedback</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form action="{{ route('application.feedback')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" id="app-id" value="">
+                    <div class="form-group mb-3">
+                        <label for="rating">Rating:</label>
+                        <div class="rating">
+                            <label>
+                                <input type="radio" name="stars" value="1" />
+                                <span class="icon">★</span>
+                              </label>
+                              <label>
+                                <input type="radio" name="stars" value="2" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                              </label>
+                              <label>
+                                <input type="radio" name="stars" value="3" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>   
+                              </label>
+                              <label>
+                                <input type="radio" name="stars" value="4" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                              </label>
+                              <label>
+                                <input type="radio" name="stars" value="5" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                              </label>
+                        </div>
+                        
+                        @error('rating')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="feedback">Feedback:</label>
+                        <textarea type="text" name="feedback" class="form-control" id="feedback" placeholder="Give your Feedback Here" cols="20" rows="5"></textarea>
+                        @error('feedback')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group text-end">
+                        <input type="submit" class="btn btn-success" value="Submit">
+                    </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         var uploadDocumentsModal = document.getElementById('uploadDocumentsModal');
         var applicationId = document.getElementById('application-id');
@@ -231,4 +326,28 @@
             aId.value = id;
         });
     </script>
+
+    <script>
+        var applicationIssueModal = document.getElementById('applicationIssueModal')
+        var applicationIssue = document.getElementById('application-issue')
+
+        applicationIssueModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var issue = button.dataset.bsIssue
+
+            applicationIssue.value = issue
+        })
+    </script>
+
+<script>
+    var feedbackModal = document.getElementById('feedbackModal');
+    var appId = document.getElementById('app-id');
+
+    feedbackModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.dataset.bsId;
+       
+        appId.value = id;
+    });
+</script>
 @endsection

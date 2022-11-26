@@ -8,6 +8,7 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicantController extends Controller
 {
@@ -78,5 +79,37 @@ class ApplicantController extends Controller
     public function account()
     {
         return view('applicant.account');
+    }
+
+    /* Applicant Update */
+    public function update(Request $req)
+    {
+        $formVal = $req->validate(
+            [
+                'name' => 'required|max:30',
+                'email' => 'required|email|ends_with:.com,.me,.edu',
+                'password' => 'required',
+            ],
+    
+            [
+                "name.required" => "This field is required",
+                "email.required" => "This field is required",
+                "password.required" => "This field is required",
+                "name.max" => "Name should not exceed 30 characters"
+            ]
+          );
+
+        if (Hash::check($formVal['password'], Auth::user()->password, [])) {
+            $formVal['password'] = bcrypt($formVal['password']);
+        } else {
+            $formVal['password'] = bcrypt($formVal['password']);
+        }
+
+        $user = User::find(auth()->user()->id);
+        $user->update($formVal);
+
+        Session::flash('msg', 'Profile Updated');
+
+        return redirect()->route('applicant.dashboard');
     }
 }

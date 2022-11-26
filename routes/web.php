@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\ApplicationController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +43,10 @@ Route::controller(ApplicantController::class)->group(function () {
     //Applicant Account
     Route::get('/applicant/account',  'account') 
     -> name('applicant.account');
+
+    //Applicant Update
+    Route::post('/applicant/update',  'update') 
+    -> name('applicant.update');
 });
 
 /* APPLICATION ROUTES */
@@ -49,6 +54,18 @@ Route::controller(ApplicationController::class)->group(function () {
     //Set Schedule
     Route::post('/applicant/set-schedule',  'setSchedule') 
     -> name('set.schedule');
+
+    //Application Verified
+    Route::get('/application/verified/{id}',  'applicationVerified')
+    -> name('application.verified');
+
+    //Application Rejected
+    Route::post('/application/rejected',  'applicationRejected')
+    -> name('application.rejected');
+
+    //Application Feedback
+    Route::post('/application/FEEDBACK',  'applicationFeedback')
+    -> name('application.feedback');
 });
 
 /* DOCUMENTS ROUTES */
@@ -91,6 +108,10 @@ Route::controller(OfficerController::class)->group(function () {
     //Officer Rejected Applications
     Route::get('/officer/rejected-application',  'rejectedApplication') 
     -> name('rejected.application');
+
+    //Officer Update
+    Route::post('/officer/update',  'update') 
+    -> name('officer.update');
 });
 
 
