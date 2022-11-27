@@ -58,7 +58,9 @@ class OfficerController extends Controller
     /*Officer Dashboard */
     public function dashboard()
     {
-        return view('officer.dashboard');
+        $applications = Application::all();
+        $heading = 'All';
+        return view('officer.application', compact('applications', 'heading'));
     }
 
     /*Officer Pending Applications */

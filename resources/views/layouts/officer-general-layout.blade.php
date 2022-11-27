@@ -34,7 +34,7 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container">
           <h5 class="navbar-brand">Welcome to Bangladesh e-Passport Portal</h5>
-          <a class="btn btn-outline-success" href="{{route('applicant.signIn')}}">Sign In</a>
+          <a class="btn btn-outline-success" href="{{route('officer.signIn')}}">Sign In</a>
         </div>
     </nav>
 

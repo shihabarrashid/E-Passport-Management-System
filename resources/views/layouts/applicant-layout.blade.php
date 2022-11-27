@@ -25,6 +25,7 @@
 
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/rating.css') }}">
 </head>
 <body>
@@ -38,19 +39,21 @@
                     <h5 class="navbar-brand">Welcome to Bangladesh e-Passport Portal</h5>
                 </div>
             
-                <div class="collapse navbar-collapse  my-2 my-lg-0" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-5">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{auth()->user()->name ?? 'None'}}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('applicant.account')}}">Account</a>
-                                <a class="dropdown-item" href="">Applications</a>
-                                <a class="dropdown-item" href="{{route('applicant.logout')}}">Logout</a>
-                            </div>
-                        </li>
-                    </ul>
+                <div style="float: right;">
+                    <div class="collapse navbar-collapse  my-2 my-lg-0" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-5">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{auth()->user()->name ?? 'None'}}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('applicant.account')}}">Account</a>
+                                    <a class="dropdown-item" href="{{route('applicant.dashboard')}}">Applications</a>
+                                    <a class="dropdown-item" href="{{route('applicant.logout')}}">Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

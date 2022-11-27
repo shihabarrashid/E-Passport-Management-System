@@ -16,10 +16,10 @@ class ApplicationController extends Controller
      { 
       $dateValidate = $request->validate( 
          [
-               'scheduled_at' => 'required',              
+            'scheduled_at' => 'required',              
          ],
          [
-               'scheduled_at.required' => 'Please Select Appointment Date',
+            'scheduled_at.required' => 'Please Select Appointment Date',
          ]);
 
       $application = Application::find($request->id);
@@ -43,7 +43,7 @@ class ApplicationController extends Controller
             $application->status = 'verified';
             $application->save();
             session()->flash('success', 'Application Verified!');
-            return redirect()->route('officer.dashboard');
+            return redirect()->route('verified.application');
       }
 
       /* Application Rejected */
@@ -54,7 +54,7 @@ class ApplicationController extends Controller
             $application->status = 'rejected';
             $application->save();
             session()->flash('success', 'Application Rejected!');
-            return redirect()->route('officer.dashboard');
+            return redirect()->route('rejected.application');
       }
 
       /* Application Feedback */
@@ -80,5 +80,11 @@ class ApplicationController extends Controller
                      Session::flash('error', 'Try Again!');
                      return redirect()->route('applicant.dashboard'); 
                  }
+      }
+
+      /* Time Slot */
+      public function timeSlot(Request $request){
+            
+
       }
 }

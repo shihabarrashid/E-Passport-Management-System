@@ -20,7 +20,7 @@
 
         <table class="table border">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<th>#</th>
 					<th>Applicant Name</th>
 					<th>Uploaded Documents</th>
@@ -31,11 +31,11 @@
 
             @if(count($applications) > 0)
                 <tbody>
-                    @foreach($applications as $application)
-                        <tr>
-                            <td>{{ $application->id }}</td>
+                    @foreach($applications as $key=>$application)
+                        <tr class="text-center">
+                            <td>{{ ++$key }}</td>
                             <td>{{ $application->name }}</td>                    
-                            <td> <a href="{{ route('pdf.generate', ['id' => $application->id]) }}">View Documents</a></td>                    
+                            <td> <a href="{{ route('pdf.generate', ['id' => $application->id]) }}" class="btn btn-secondary">View Documents</a></td>                    
         
                             <td class="text-center">
                                 @if($application->status == 'payment_done')

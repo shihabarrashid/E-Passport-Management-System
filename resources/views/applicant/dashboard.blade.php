@@ -23,7 +23,7 @@
 
         <table class="table border">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<th>#</th>
 					<th>Applicant Name</th>
 					<th>Passport Type</th>
@@ -36,13 +36,18 @@
 
             @if(count($applications) > 0)
             <tbody>
-                @foreach($applications as $application)
-                    <tr>
-                        <td>{{ $application->id }}</td>
+                @foreach($applications as $key=>$application)
+                    <tr class="text-center">
+                        <td>{{ ++$key }}</td>
                         <td>{{ $application->name }}</td>
                         <td>{{ $application->passport_type }}</td>
                         <td>{{ $application->delivery_type }}</td>
-                        <td>{{ $application->scheduled_at }}</td>
+
+                        @if($application->scheduled_at != null)
+                        <td>{{ \Carbon\Carbon::parse($application->scheduled_at)->format('j F Y g:i A')}}</td>
+                        @else
+                        <td></td>
+                        @endif
                        
     
                         <td class="text-center">
@@ -191,26 +196,25 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form action="{{ route('set.schedule')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id" id="a-id" value="">
-                    <div class="form-group mb-3">
-                        <label for="scheduled_at" class="form-label">Appoinment Date</label>
-						<input type="datetime-local" class="form-control" name="scheduled_at" id="scheduled_at">
-                        @error('scheduled_at')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    <form action="{{ route('set.schedule')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="a-id" value="">
+                        <div class="form-group mb-3">
+                            <label for="scheduled_at" class="form-label">Appoinment Date</label>
+                            <input id="availableDates" type="datetime-local" class="form-control" name="scheduled_at" id="scheduled_at">
+                            @error('scheduled_at')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                    <div class="form-group text-end">
-                        <input type="submit" class="btn btn-success" value="Set Schedule">
-                    </div>
+                        <div class="form-group text-end">
+                            <input type="submit" class="btn btn-success" value="Set Schedule">
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 
 {{-- View Issue Modal --}}
     <div class="modal fade" id="applicationIssueModal" tabindex="-1" aria-labelledby="applicationIssueModalLabel" aria-hidden="true">

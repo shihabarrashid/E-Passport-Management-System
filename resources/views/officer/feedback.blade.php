@@ -20,7 +20,7 @@
 
         <table class="table border">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<th>#</th>
 					<th>Applicant Name</th>
 					<th>Status</th>
@@ -30,9 +30,9 @@
 
             @if(count($applications) > 0)
                 <tbody>
-                    @foreach($applications as $application)
-                        <tr>
-                            <td>{{ $application->id }}</td>
+                    @foreach($applications as $key=>$application)
+                        <tr class="text-center">
+                            <td>{{ ++$key }}</td>
                             <td>{{ $application->name }}</td>                                     
         
                             <td class="text-center">
@@ -80,8 +80,39 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="application-rating" class="col-form-label">Rating:</label>
-                    <input class="form-control" id="application-rating" readonly disabled>
+                    <label for="application-rating" class="" style="vertical-align: 15px;">Rating:</label>
+                    <div class="rating">
+                        <label>
+                            <input type="radio" name="stars" value="1" disabled id="star1"/>
+                            <span class="icon">★</span>
+                          </label>
+                          <label>
+                            <input type="radio" name="stars" value="2" disabled  id="star2"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                          </label>
+                          <label>
+                            <input type="radio" name="stars" value="3" disabled id="star3"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>   
+                          </label>
+                          <label>
+                            <input type="radio" name="stars" value="4" disabled id="star4"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                          </label>
+                          <label>
+                            <input type="radio" name="stars" value="5" disabled id="star5"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                          </label>
+                    </div>
                 </div>    
 
                 <div class="mb-3">
@@ -106,7 +137,29 @@
             var rating = button.dataset.bsRating
             var feedback = button.dataset.bsFeedback
 
-            applicationRating.value = rating
+            if(rating == 1)
+            {
+                document.getElementById('star1').checked = "true";
+            }
+            else if(rating == 2)
+            {
+                document.getElementById('star2').checked = "true";
+            }
+            else if(rating == 3)
+            {
+                document.getElementById('star3').checked = "true";
+            }
+            else if(rating == 4)
+            {
+                document.getElementById('star4').checked = "true";
+            }
+            else if(rating == 5)
+            {
+                document.getElementById('star5').checked = "true";
+            }
+            else{
+
+            }
             applicationFeedback.value = feedback
         })
     </script>

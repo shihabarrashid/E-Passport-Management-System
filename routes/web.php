@@ -64,7 +64,7 @@ Route::controller(ApplicationController::class)->group(function () {
     -> name('application.rejected');
 
     //Application Feedback
-    Route::post('/application/FEEDBACK',  'applicationFeedback')
+    Route::post('/application/feedback',  'applicationFeedback')
     -> name('application.feedback');
 });
 
@@ -119,7 +119,7 @@ Route::controller(OfficerController::class)->group(function () {
 
     //Applications Feedback
     Route::get('/officer/application-feedback',  'applicationFeedback') 
-    -> name('application.feedback');
+    -> name('officer.feedback');
 });
 
 
