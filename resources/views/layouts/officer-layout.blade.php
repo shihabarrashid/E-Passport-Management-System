@@ -46,6 +46,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('rejected.application')}}">Rejected Applications</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('application.feedback')}}">Feedback</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Officer
                             {{auth()->user()->name ?? 'None'}}

@@ -73,6 +73,10 @@ Route::controller(DocumentController::class)->group(function () {
     //Upload Documents
     Route::post('/applicant/upload-documents',  'uploadDocuments') 
     -> name('documents.store');
+
+    //PDF Generate
+    Route::get('/officer/application/pdf/{id}',  'pdfGenerate') 
+    -> name('pdf.generate');
 });
 
 /* OFFICER ROUTES */
@@ -112,6 +116,10 @@ Route::controller(OfficerController::class)->group(function () {
     //Officer Update
     Route::post('/officer/update',  'update') 
     -> name('officer.update');
+
+    //Applications Feedback
+    Route::get('/officer/application-feedback',  'applicationFeedback') 
+    -> name('application.feedback');
 });
 
 

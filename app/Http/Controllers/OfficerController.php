@@ -136,4 +136,12 @@ class OfficerController extends Controller
 
         return redirect()->route('officer.dashboard');
     }
+
+    /* Application Feedback */
+    public function applicationFeedback(Request $req)
+    {
+        $applications = Application::where('rating', '!=', null)->get();
+        $heading = 'Feedback';
+        return view('officer.feedback', compact('applications', 'heading'));
+    }
 }

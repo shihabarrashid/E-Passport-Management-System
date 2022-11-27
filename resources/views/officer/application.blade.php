@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $application->id }}</td>
                             <td>{{ $application->name }}</td>                    
-                            <td> <a href="">View Documents</a></td>                    
+                            <td> <a href="{{ route('pdf.generate', ['id' => $application->id]) }}">View Documents</a></td>                    
         
                             <td class="text-center">
                                 @if($application->status == 'payment_done')
